@@ -6,7 +6,7 @@ This app is not yet finished and provided as a public beta for now. You are enco
 
 You are currently looking at the source code repository of OctoPrint App for Android.
 
-## Changes
+## Changes by frado1
 
 Based on the original BQ version, I translated the source code to kotlin, get it work again with current versions of SDK and libraries as well as the newest OctoPrint server version ( >1.3.10) which changed a lot regarding security.
 
