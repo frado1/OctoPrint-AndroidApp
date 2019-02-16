@@ -6,6 +6,17 @@ This app is not yet finished and provided as a public beta for now. You are enco
 
 You are currently looking at the source code repository of OctoPrint App for Android.
 
+## Changes
+
+Based on the original BQ version, I translated the source code to kotlin, get it work again with current versions of SDK and libraries as well as the newest OctoPrint server version ( >1.3.10) which changed a lot regarding security.
+
+Also I added already some enhancements:
+- Supports subdirectories in model->printer to show gcode
+- Support temperatur of multiple extruders
+- Started german translation
+
+The code is rather Alpha than Beta, but the basics are working. 
+
 ## What does it do?
 
 The goal of this app is to provide a user friendly but powerful interface to your 3D printer, with full support for slicing and directly printing any STL models.
