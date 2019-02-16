@@ -31,7 +31,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v4.util.SparseArrayCompat;
+//import android.support.v4.util.SparseArrayCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -50,7 +50,9 @@ import android.widget.ListView;
 import android.widget.RemoteViews.RemoteView;
 import android.widget.WrapperListAdapter;
 
-import it.sephiroth.android.library.R;
+//import it.sephiroth.android.library.R;
+import androidx.collection.SparseArrayCompat;
+import de.domes_muc.horizontallistlibrary.R;
 
 /*
  * Implementation Notes:

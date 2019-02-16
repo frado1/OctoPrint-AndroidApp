@@ -1,5 +1,2 @@
-<manifest package="it.sephiroth.android.library">
-
-	<application />
-
-</manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.domes_muc.horizontallistlibrary" />

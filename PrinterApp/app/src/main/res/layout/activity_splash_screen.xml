@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,11 +11,31 @@
         android:scaleType="fitXY"
         android:src="@drawable/splash_screen" />
 
-    <com.pnikosis.materialishprogress.ProgressWheel
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="100dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="Modified and enhanced by  Franz Domes\n© 2019"
+        android:clickable="false"
+        android:focusable="false"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <!-- com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/progress_wheel"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:matProg_barColor="@color/theme_accent_1"
         android:layout_gravity="bottom|right"
-        app:matProg_progressIndeterminate="true" />
+        app:matProg_progressIndeterminate="true" / -->
 </FrameLayout>

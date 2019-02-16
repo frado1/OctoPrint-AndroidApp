@@ -7,14 +7,14 @@
 
     <!-- Util UI for progress dialogs. Include a progress bar and a textview -->
 
-    <com.pnikosis.materialishprogress.ProgressWheel
+    <!-- com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/progress_wheel"
         android:layout_gravity="center"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginRight="@dimen/content_margin_small"
         app:matProg_barColor="@color/theme_accent_1"
-        app:matProg_progressIndeterminate="true"/>
+        app:matProg_progressIndeterminate="true"/ -->
 
     <TextView
         style="@style/DialogContent"

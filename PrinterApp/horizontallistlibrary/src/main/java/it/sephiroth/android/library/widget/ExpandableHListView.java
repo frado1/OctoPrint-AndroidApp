@@ -38,7 +38,8 @@ import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 
-import it.sephiroth.android.library.R;
+//import it.sephiroth.android.library.R;
+import de.domes_muc.horizontallistlibrary.R;
 
 /**
  * A view that shows items in a vertically scrolling two-level list. This

@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="android.app.printerapp"
-    android:versionCode="0"
-    android:versionName="1.0">
-
-    <!--uses-sdk tools:overrideLibrary="android.support.v4"/-->
+    package="de.domes_muc.printerappkotlin">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,26 +10,22 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
-    <supports-screens android:smallScreens="false"
-        android:normalScreens="false"
-        android:largeScreens="true"
-        android:xlargeScreens="true"
-        android:requiresSmallestWidthDp="600" />
-
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme.Green"
-        android:largeHeap="true"
-        android:vmSafeMode="true"
         android:allowClearUserData="true"
-        android:hardwareAccelerated="true">
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppBaseTheme.Green"
+        android:vmSafeMode="true">
 
         <activity
-            android:name="android.app.printerapp.SplashScreenActivity"
-            android:screenOrientation="landscape"
+            android:name="de.domes_muc.printerappkotlin.SplashScreenActivity"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:theme="@style/AppBaseTheme.Green.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,21 +34,17 @@
         </activity>
 
         <activity
-            android:name="android.app.printerapp.MainActivity"
+            android:name="de.domes_muc.printerappkotlin.MainActivity"
+            android:configChanges="locale"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"
-            android:configChanges="locale">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <receiver android:name=".NotificationReceiver">
             <intent-filter>
-                <action android:name="android.app.printerapp.NotificationReceiver" />
+                <action android:name="de.domes_muc.printerappkotlin.NotificationReceiver" />
             </intent-filter>
         </receiver>
-
-
     </application>
-
 </manifest>

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <!-- Card view with the advanced options to handle the model in the right panel -->
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/advanced_options_card_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -449,7 +449,7 @@
             </RelativeLayout>
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
 </FrameLayout>

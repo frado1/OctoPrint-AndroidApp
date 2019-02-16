@@ -6,15 +6,16 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.*;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import androidx.annotation.NonNull;
+//import android.support.v4.view.ViewPager;
+//import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 import android.widget.*;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
     private int mUnderLineHeight;
     private int mNavButtonWidth;
     private int mCurrentIndex;
-    private OnPageChangeListener mOnPageChangeListener;
+    private ViewPager.OnPageChangeListener mOnPageChangeListener;
     private TabContainer tabsContainer;
     private ViewPager pager;
     private TabView mCurrentTab;
@@ -102,7 +103,7 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
         linePaint.setStyle(Paint.Style.FILL);
     }
 
-    public void setOnPageChangeListener(OnPageChangeListener listener) {
+    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         this.mOnPageChangeListener = listener;
     }
 
@@ -682,7 +683,7 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
 
     }
 
-    private class PageListener implements OnPageChangeListener {
+    private class PageListener implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

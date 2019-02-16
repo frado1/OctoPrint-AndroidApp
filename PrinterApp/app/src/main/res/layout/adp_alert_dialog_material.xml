@@ -97,7 +97,7 @@
         android:paddingRight="12dp"
         android:paddingTop="8dp">
 
-        <com.alertdialogpro.material.ButtonCompat
+        <Button
             android:id="@id/adp_button3"
             style="?attr/adpButtonBarNeutralButtonStyle"
             android:layout_width="wrap_content"
@@ -109,13 +109,13 @@
             android:layout_weight="1"
             android:visibility="invisible" />
 
-        <com.alertdialogpro.material.ButtonCompat
+        <Button
             android:id="@id/adp_button2"
             style="?attr/adpButtonBarNegativeButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.alertdialogpro.material.ButtonCompat
+        <Button
             android:id="@id/adp_button1"
             style="?attr/adpButtonBarPositiveButtonStyle"
             android:layout_width="wrap_content"

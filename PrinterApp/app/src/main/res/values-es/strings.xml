@@ -99,6 +99,10 @@
     <string name="devices_color_violet">Morado</string>
     <string name="devices_color_black">Negro</string>
 
+    <string name="printview_temperature_text">Temp</string>
+    <string name="printview_motion_text">Motion</string>
+    <string name="printview_extruder_text">Extrusor</string>
+
     <string name="printview_video_text">Vídeo</string>
     <string name="printview_3d_text">Render 3D</string>
     <string name="printview_profile_tag">Perfil - </string>
@@ -317,7 +321,7 @@
     <string name="viewer_settings_select_profile">Selecciona un perfil de impresión</string>
     <string name="printview_retract_button">Extraer</string>
     <string name="printview_etrude_button">Retraer</string>
-    <string name="printview_extruder_tag">Extrusor</string>
+    <string name="printview_extruder_tag">Extrusor %d</string>
     <string name="printview_bed_tag">Cama</string>
     <string name="printview_change_temp_button">Cambiar a %1$d°C</string>
     <string name="library_list_date_tag">Última modificación</string>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:clickable="false"
+    android:focusable = "false"
+    android:focusableInTouchMode = "false"
+    android:background="@drawable/rounded_corner"
+    android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/printview_extruder_tag"
+            style="@style/SectionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable = "false"
+            android:focusableInTouchMode = "false"
+            android:text="@string/printview_extruder_tag" />
+
+        <TextView
+            android:id="@+id/printview_extruder_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/printview_extruder_tag"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/content_margin_normal"
+            android:textSize="@dimen/text_size_medium"
+            android:clickable="false"
+            android:focusable = "false"
+            android:focusableInTouchMode = "false"
+            android:textStyle="italic" />
+
+        <SeekBar
+            android:id="@+id/printview_extruder_temp_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/printview_extruder_tag"
+            android:layout_marginLeft="@dimen/content_padding_normal"
+            android:layout_marginRight="@dimen/content_padding_normal"
+            android:max="250" />
+
+        <com.material.widget.PaperButton
+            android:id="@+id/printview_extruder_temp_button"
+            style="@style/MaterialDesignButton.Flat.Default"
+            android:layout_width="170dp"
+            android:layout_below="@+id/printview_extruder_temp_slider"
+            android:layout_centerHorizontal="true"
+            android:clickable="false"
+            android:focusable = "false"
+            android:focusableInTouchMode = "false"
+            app:paper_text="@string/printview_change_temp_button" />
+</LinearLayout>

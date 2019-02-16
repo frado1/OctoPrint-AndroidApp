@@ -209,7 +209,7 @@
                         </LinearLayout>
 
                         <!-- Seek bar to show/hide layers of the model -->
-                        <android.app.printerapp.util.ui.VerticalSeekBar
+                        <de.domes_muc.printerappkotlin.util.ui.VerticalSeekBar
                             android:id="@+id/barLayer"
                             style="@style/TallerSeekBar"
                             android:layout_width="wrap_content"
@@ -268,7 +268,7 @@
                                 android:orientation="horizontal"
                                 android:visibility="gone">
 
-                                <android.app.printerapp.util.ui.CustomEditableSlider
+                                <de.domes_muc.printerappkotlin.util.ui.CustomEditableSlider
                                     android:id="@+id/print_panel_slider"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
