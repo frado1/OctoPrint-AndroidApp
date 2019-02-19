@@ -302,7 +302,6 @@
     <string name="error_saving_invalid_model">El panel de impresión está vacío, abre un fichero primero.</string>
     <string name="font_fontFamily_drawer_item">sans-serif</string>
     <string name="font_fontFamily_medium">sans-serif</string>
-    <string name="fragment_detail_printer"></string>
     <string name="gcode_viewer">Archivos Gcode</string>
     <string name="new_project">Nuevo proyecto</string>
     <string name="ok">Aceptar</string>
@@ -379,9 +378,11 @@
     <string name="printview_profiles_overwrite">Perfil sobrescrito</string>
     <string name="slice">Laminar</string>
     <string name="settings_change_network">Cambiar red</string>
-    <string name="manual_add_octoprint_key">OctoPrint API Key</string>
     <string name="manual_add_error_address">La dirección no puede estar vacía</string>
     <string name="printview_video_error">Webcam no disponible</string>
     <string name="connection_error_api_disabled">No se puede configurar la conexión automáticamente, añade la impresora de forma manual</string>
+    <string name="v2_about_app_name">PrinterApp Kotlin by Franz Domes</string>
+    <string name="v2_copyright">© 2019</string>
+    <string name="network_status_text_established">Conexión establecida</string>
 
 </resources>

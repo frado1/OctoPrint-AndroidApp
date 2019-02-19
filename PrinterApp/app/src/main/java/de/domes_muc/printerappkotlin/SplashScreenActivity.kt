@@ -71,7 +71,7 @@ class SplashScreenActivity : Activity() {
         private val TAG = "SplashScreenActivity"
 
         //Set the duration of the splash screen
-        private val SPLASH_SCREEN_DELAY: Long = 10000
+        private val SPLASH_SCREEN_DELAY: Long = 3000
     }
 
 }

@@ -27,7 +27,6 @@
                 android:layout_height="match_parent" />
 
 
-
         </LinearLayout>
 
         <!-- Right panel. Include a tab host with two views: video and render 3D -->
@@ -67,10 +66,11 @@
                             android:id="@android:id/tabcontent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
+                            android:layout_below="@android:id/tabs"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@android:id/tabs">
+                            android:layout_alignParentBottom="true">
+
 
                             <!-- VIDEO VIEW -->
                             <FrameLayout
@@ -80,17 +80,52 @@
                                 android:background="@color/black">
 
                                 <RelativeLayout
+                                    android:id="@+id/videocam_off_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:id="@+id/videocam_off_icon"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_videocam_off_gray" />
+
+                                    <TextView
+                                        android:id="@+id/videocam_off_text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/videocam_off_icon"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="20dp"
+                                        android:gravity="center"
+                                        android:text="@string/printview_video_error"
+                                        android:textColor="@color/white" />
+
+                                </RelativeLayout>
+                            </FrameLayout>
+
+                            <!-- TEMPERATURE VIEW -->
+                            <FrameLayout
+                                android:id="@+id/printview_tempgraph"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/black">
+
+                                <RelativeLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:id="@+id/videocam_off_layout">
+                                    android:id="@+id/tempgrid_off_layout">
 
                                     <ImageView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:id="@+id/videocam_off_icon"
+                                        android:id="@+id/tempgrid_off_icon"
                                         android:src="@drawable/ic_videocam_off_gray"/>
 
                                     <TextView
@@ -98,16 +133,14 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center"
-                                        android:id="@+id/videocam_off_text"
-                                        android:layout_below="@id/videocam_off_icon"
+                                        android:id="@+id/tempgrid_off_text"
+                                        android:layout_below="@id/tempgrid_off_icon"
                                         android:layout_margin="20dp"
                                         android:textColor="@color/white"
-                                        android:text="@string/printview_video_error"/>
+                                        android:text="@string/printview_tempgrid_error"/>
 
-                                    </RelativeLayout>
-
-
-                                 </FrameLayout>
+                                </RelativeLayout>
+                            </FrameLayout>
 
                             <!-- 3D RENDER VIEW -->
                             <FrameLayout
@@ -123,28 +156,26 @@
                                     android:gravity="center">
 
                                     <ImageView
+                                        android:id="@+id/render_off_icon"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:id="@+id/render_off_icon"
-                                        android:src="@drawable/ic_nomodel_grey600"/>
+                                        android:src="@drawable/ic_nomodel_grey600" />
 
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textColor="@color/white"
                                         android:layout_below="@id/render_off_icon"
+                                        android:layout_gravity="center"
                                         android:layout_margin="20dp"
-                                        android:text="@string/printview_render_error"/>
-                                    </RelativeLayout>
+                                        android:gravity="center"
+                                        android:text="@string/printview_render_error"
+                                        android:textColor="@color/white" />
+                                </RelativeLayout>
 
 
-                                </FrameLayout>
-
+                            </FrameLayout>
                         </FrameLayout>
-
                     </RelativeLayout>
 
                 </TabHost>

@@ -112,7 +112,6 @@ class CameraHandler(
                 //Returns an input stream
                 view!!.setSource(result)
 
-
                 //Display options
                 view!!.setDisplayMode(MjpegView.SIZE_BEST_FIT)
 

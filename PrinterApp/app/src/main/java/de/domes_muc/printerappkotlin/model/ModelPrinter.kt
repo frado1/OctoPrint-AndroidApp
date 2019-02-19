@@ -8,6 +8,7 @@ import de.domes_muc.printerappkotlin.octoprint.OctoprintConnection
 import de.domes_muc.printerappkotlin.octoprint.StateUtils
 import android.content.Context
 import de.domes_muc.printerappkotlin.octoprint.OctoprintLogin
+import de.domes_muc.printerappkotlin.octoprint.OctoprintProfiles
 
 import org.json.JSONArray
 import org.json.JSONException
@@ -174,6 +175,7 @@ class ModelPrinter(//Service info
         status = StateUtils.STATE_NONE
         OctoprintLogin.postLogin(context, this) { context: Context, p: ModelPrinter ->
             OctoprintConnection.openSocket(p, context)
+            OctoprintProfiles.getProfiles(p)
         }
     }
 

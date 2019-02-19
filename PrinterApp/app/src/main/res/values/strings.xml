@@ -5,9 +5,7 @@
     <string name="about_app_name" translatable="false">OctoPrint 3d bq printer controller</string>
     <string name="about_url" translatable="false">http://www.octoprint.org</string>
     <string name="title_item_detail">Item Detail</string>
-    
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
-    
+
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
@@ -398,7 +396,6 @@
     <string name="dialog_add_printer_address">Printer IP address</string>
     <string name="dialog_add_printer_error">That printer already exists</string>
     <string name="printview_render_error">No model loaded on the plate</string>
-    <string name="dialog_add_printer_timeout">Connection taking longer than usual, reconnecting to previous network</string>
     <string name="dialog_printer_manual_add">Add manually</string>
     <string name="printview_profiles_overwrite">Profile overwritten</string>
     <string name="slice">Slice</string>
@@ -407,6 +404,15 @@
     <string name="manual_add_error_address">Address can\'t be empty</string>
     <string name="printview_video_error">Webcam not available</string>
     <string name="connection_error_api_disabled">The connection cannot be configured automatically, please add it manually</string>
+    <string name="v2_about_app_name">PrinterApp Kotlin by Franz Domes</string>
+    <string name="v2_copyright">© 2019</string>
+    <string name="v2_about_feedback_url" translatable="false">https://github.com/frado1/OctoPrint-AndroidApp</string>
+    <string name="printview_tempgraph_text">TEMPERATURE</string>
+    <string name="printview_tempgrid_error">Temperature not available</string>
+    <string name="network_status_text_established">Connected</string>
+    <string name="devices_filter_dialog_progres">print in progress</string>
+    <string name="dialog_add_printer_timeout">Connection taking longer than usual, reconnecting to previous network</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
 
 
 </resources>

@@ -66,6 +66,7 @@ class EditPrinterDialog//Constructor
     private var button_edit: ImageButton? = null
     private var button_delete: ImageButton? = null
 
+    private var profile_adapter: ArrayAdapter<String>? = null
     private var type_adapter: ArrayAdapter<String>? = null
     private var color_adapter: ArrayAdapter<String>? = null
     private var spinner_port: Spinner? = null
@@ -99,7 +100,6 @@ class EditPrinterDialog//Constructor
 
             //Only files with the .profile extension
             if (file.absolutePath.contains(".profile")) {
-
                 val pos = file.name.lastIndexOf(".")
                 val name = if (pos > 0) file.name.substring(0, pos) else file.name
 
@@ -107,6 +107,13 @@ class EditPrinterDialog//Constructor
                 profileArray!!.add(name)
             }
 
+        }
+
+        OctoprintProfiles.mProfiles?.let {
+            val objKeys = it.keys()
+            objKeys.forEach{
+                profileArray!!.add(it)
+            }
         }
 
         //Initialize adapters

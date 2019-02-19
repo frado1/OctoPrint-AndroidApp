@@ -3,6 +3,7 @@ package de.domes_muc.printerappkotlin.model
 import de.domes_muc.printerappkotlin.Log
 import de.domes_muc.printerappkotlin.R
 import android.content.Context
+import de.domes_muc.printerappkotlin.octoprint.OctoprintProfiles
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -69,8 +70,6 @@ object ModelProfile {
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             }
-
-
         }
         //fis = context.getResources().openRawResource(id);
         var json: JSONObject? = null
@@ -80,28 +79,24 @@ object ModelProfile {
             val sb = StringBuilder()
             var line: String? = null
 
-
-
             try {
                 while (reader.readLine()?.let {sb.append(it)} != null);
 
                 reader.close()
 
-
                 json = JSONObject(sb.toString())
 
                 Log.i("json", json.toString())
-
 
             } catch (e: IOException) {
                 e.printStackTrace()
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-
+        } else {
+            // Check if profile is from printer
+            json = OctoprintProfiles.mProfiles?.optJSONObject(resource)
         }
-
-
 
         return json
 

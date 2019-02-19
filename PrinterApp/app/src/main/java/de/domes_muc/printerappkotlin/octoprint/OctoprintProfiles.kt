@@ -2,19 +2,13 @@ package de.domes_muc.printerappkotlin.octoprint
 
 import de.domes_muc.printerappkotlin.Log
 import android.content.Context
-
 import com.loopj.android.http.JsonHttpResponseHandler
-
-import cz.msebera.android.httpclient.HttpEntity
 import com.loopj.android.http.*;
 import cz.msebera.android.httpclient.Header
-import cz.msebera.android.httpclient.client.ClientProtocolException
-import cz.msebera.android.httpclient.client.methods.CloseableHttpResponse
-import cz.msebera.android.httpclient.client.methods.HttpPatch
-import cz.msebera.android.httpclient.conn.ssl.SSLConnectionSocketFactory
 import cz.msebera.android.httpclient.entity.StringEntity
-import cz.msebera.android.httpclient.impl.client.HttpClientBuilder
-import cz.msebera.android.httpclient.ssl.SSLContexts
+import de.domes_muc.printerappkotlin.MainActivity
+import de.domes_muc.printerappkotlin.model.ModelPrinter
+import org.json.JSONArray
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,6 +19,44 @@ import java.io.UnsupportedEncodingException
  * Created by alberto-baeza on 12/9/14.
  */
 object OctoprintProfiles {
+
+    const val TAG = "Profiles"
+
+    var mProfiles: JSONObject? = null
+    /**
+     * Function to get the settings from the server
+     * @param p
+     */
+    fun getProfiles(p: ModelPrinter) {
+
+        val PREFIX = "http:/"
+
+        HttpClientHandler.get(p.address + HttpUtils.URL_PROFILES, RequestParams(), object : JsonHttpResponseHandler() {
+
+            override fun onSuccess(statusCode: Int, headers: Array<Header>, response: JSONObject) {
+                super.onSuccess(statusCode, headers, response)
+
+                try {
+                    mProfiles = response.getJSONObject("profiles")
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<Header>,
+                responseString: String,
+                throwable: Throwable
+            ) {
+                super.onFailure(statusCode, headers, responseString, throwable)
+
+                Log.i(OctoprintProfiles.TAG, "Profiles failure: $responseString")
+                MainActivity.showDialog(responseString)
+            }
+        })
+
+    }
 
 
     /**
@@ -58,37 +90,61 @@ object OctoprintProfiles {
 
 
         val finalId = id
-        HttpClientHandler.post(context, url + HttpUtils.URL_PROFILES,
-            entity!!, "application/json", object : JsonHttpResponseHandler() {
 
-                fun onProgress(
-                    bytesWritten: Int,
-                    totalSize: Int
-                ) {
-                }
+        if ( mProfiles?.optJSONObject(id) != null ) {
+            HttpClientHandler.patch(context, url + HttpUtils.URL_PROFILES,
+                entity!!, "application/json", object : JsonHttpResponseHandler() {
 
-                override fun onSuccess(
-                    statusCode: Int,
-                    headers: Array<Header>, response: JSONObject
-                ) {
-                    super.onSuccess(statusCode, headers, response)
-                    Log.i("OUT", "Profile Upload successful")
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<Header>, response: JSONObject
+                    ) {
+                        super.onSuccess(statusCode, headers, response)
+                        Log.i("OUT", "Profile Upload successful")
 
-                    OctoprintConnection.startConnection(url, context, port, finalId!!)
+                        OctoprintConnection.startConnection(url, context, port, finalId!!)
+                    }
+
+                    override fun onFailure(
+                        statusCode: Int,
+                        headers: Array<Header>,
+                        responseString: String,
+                        throwable: Throwable
+                    ) {
+                        Log.i("OUT", "Profile Upload Patch failure: $responseString")
+                        super.onFailure(statusCode, headers, responseString, throwable)
+                        MainActivity.showDialog("Profile Patch Failure:<br>$responseString")
+                    }
+                })
+
+        } else {
+            HttpClientHandler.post(context, url + HttpUtils.URL_PROFILES,
+                entity!!, "application/json", object : JsonHttpResponseHandler() {
+
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<Header>, response: JSONObject
+                    ) {
+                        super.onSuccess(statusCode, headers, response)
+                        Log.i("OUT", "Profile Upload successful")
+
+                        OctoprintConnection.startConnection(url, context, port, finalId!!)
 
 
-                }
+                    }
 
-                override fun onFailure(
-                    statusCode: Int,
-                    headers: Array<Header>,
-                    responseString: String,
-                    throwable: Throwable
-                ) {
-                    super.onFailure(statusCode, headers, responseString, throwable)
-                }
-            })
-
+                    override fun onFailure(
+                        statusCode: Int,
+                        headers: Array<Header>,
+                        responseString: String,
+                        throwable: Throwable
+                    ) {
+                        Log.i("OUT", "Profile Upload failure: $responseString")
+                        super.onFailure(statusCode, headers, responseString, throwable)
+                        MainActivity.showDialog("Profile Post Failure:<br>$responseString")
+                    }
+                })
+        }
 
     }
 

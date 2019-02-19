@@ -1,9 +1,7 @@
 package de.domes_muc.printerappkotlin.octoprint
 
-import android.app.ProgressDialog
 import de.domes_muc.printerappkotlin.Log
 import de.domes_muc.printerappkotlin.MainActivity
-import de.domes_muc.printerappkotlin.R
 import de.domes_muc.printerappkotlin.devices.database.DatabaseController
 import de.domes_muc.printerappkotlin.model.ModelPrinter
 import de.domes_muc.printerappkotlin.viewer.ViewerMainFragment
@@ -12,16 +10,8 @@ import android.content.Context
 import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 
-import cz.msebera.android.httpclient.HttpEntity
-import com.loopj.android.http.*;
 import cz.msebera.android.httpclient.Header
-import cz.msebera.android.httpclient.client.ClientProtocolException
-import cz.msebera.android.httpclient.client.methods.CloseableHttpResponse
-import cz.msebera.android.httpclient.client.methods.HttpPatch
-import cz.msebera.android.httpclient.conn.ssl.SSLConnectionSocketFactory
 import cz.msebera.android.httpclient.entity.StringEntity
-import cz.msebera.android.httpclient.impl.client.HttpClientBuilder
-import cz.msebera.android.httpclient.ssl.SSLContexts
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -63,8 +53,6 @@ object OctoprintSlicing {
 
         HttpClientHandler.put(context, p.address + HttpUtils.URL_SLICING + "/" + key,
             entity!!, "application/json", object : JsonHttpResponseHandler() {
-
-                fun onProgress(bytesWritten: Int, totalSize: Int) {}
 
                 override fun onSuccess(
                     statusCode: Int, headers: Array<Header>,
@@ -109,8 +97,6 @@ object OctoprintSlicing {
             p.address + HttpUtils.URL_SLICING + "/" + profile,
             object : JsonHttpResponseHandler() {
 
-                fun onProgress(bytesWritten: Int, totalSize: Int) {}
-
                 override fun onSuccess(
                     statusCode: Int, headers: Array<Header>,
                     response: JSONObject
@@ -131,7 +117,8 @@ object OctoprintSlicing {
      * Method to retrieve slice profiles before sending the file to the actual printer
      *
      */
-    fun retrieveProfiles(context: Context, p: ModelPrinter) {
+    @Suppress("UNUSED_PARAMETER")
+    fun retrieveProfiles(_context: Context, p: ModelPrinter) {
 
         HttpClientHandler.get(p.address + HttpUtils.URL_SLICING, RequestParams(), object : JsonHttpResponseHandler() {
 
@@ -269,26 +256,12 @@ object OctoprintSlicing {
             HttpClientHandler.post(url + HttpUtils.URL_FILES + "/local",
                 params, object : JsonHttpResponseHandler() {
 
-                    //Override onProgress because it's faulty
-                    fun onProgress(bytesWritten: Int, totalSize: Int) {
-                        val progress = bytesWritten * 100 / totalSize
-
-                        if (DatabaseController.getPreference(DatabaseController.TAG_SLICING, "Last") != null)
-                            if (DatabaseController.getPreference("Slicing", "Last") == file.name) {
-                                ViewerMainFragment.showProgressBar(StateUtils.SLICER_UPLOAD, progress)
-                            } //else sendFailureMessage(0, null, null, null);
-
-
-                    }
-
-
                     //If success, the file was uploaded correctly
                     override fun onSuccess(
                         statusCode: Int, headers: Array<Header>,
                         response: JSONObject
                     ) {
                         super.onSuccess(statusCode, headers, response)
-
 
                         Log.i("Slicer", "Upload successful") //TODO
 
@@ -320,12 +293,6 @@ object OctoprintSlicing {
                             if (DatabaseController.getPreference("Slicing", "Last") == file.name)
                                 HttpClientHandler.post(context, url + HttpUtils.URL_FILES + "/local/" + file.name,
                                     entity!!, "application/json", object : JsonHttpResponseHandler() {
-
-                                        fun onProgress(
-                                            bytesWritten: Int,
-                                            totalSize: Int
-                                        ) {
-                                        }
 
                                         override fun onSuccess(
                                             statusCode: Int,

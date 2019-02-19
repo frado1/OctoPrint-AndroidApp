@@ -57,7 +57,7 @@ class SlicingHandler(private val mActivity: Activity) {
     private val mSaveRunnable = Runnable {
         val mFile = createTempFile()
 
-        Log.i("Slicer", "Sending slice command")
+        Log.i("Slicer", "Sending slice command 1")
         OctoprintSlicing.sliceCommand(mActivity, mPrinter!!.address, mFile, mExtras)
         //if (mExtras.has("print")) mExtras.remove("print");
 
@@ -118,17 +118,13 @@ class SlicingHandler(private val mActivity: Activity) {
 
         var tempFile: File? = null
 
-
         //Create temporary folder
         val tempPath = File(LibraryController.parentFolder.getAbsolutePath() + "/temp")
 
         if (tempPath.mkdir()) {
-
             Log.i("Slicer", "Creating temporary file $tempPath")
-
         } else
             Log.i("Slicer", "Directory exists $tempPath")
-
         try {
 
             //add an extra random id
@@ -139,18 +135,13 @@ class SlicingHandler(private val mActivity: Activity) {
 
             //delete previous file
             try {
-
-
                 var lastFile: File? = null
                 if (lastReference != null) {
                     lastFile = File(lastReference)
                     lastFile.delete()
                 }
-
-
                 Log.i("Slicer", "Deleted " + lastReference!!)
             } catch (e: NullPointerException) {
-
                 e.printStackTrace()
             }
 
@@ -159,7 +150,6 @@ class SlicingHandler(private val mActivity: Activity) {
                 lastReference = tempFile.absolutePath
 
                 DatabaseController.handlePreference(DatabaseController.TAG_RESTORE, "Last", lastReference, true)
-
                 DatabaseController.handlePreference(DatabaseController.TAG_SLICING, "Last", tempFile.name, true)
 
 
@@ -169,11 +159,7 @@ class SlicingHandler(private val mActivity: Activity) {
                 fos.write(mData)
                 fos.fd.sync()
                 fos.close()
-
-            } else {
-
             }
-
 
         } catch (e: Exception) {
 
@@ -253,11 +239,8 @@ class SlicingHandler(private val mActivity: Activity) {
                 }
             }
 
-
             //Timer stopped
             isRunning = false
-
-
         }
     }
 
@@ -278,7 +261,7 @@ class SlicingHandler(private val mActivity: Activity) {
 
         protected override fun onPostExecute(o: Any) {
 
-            Log.i("Slicer", "Sending slice command")
+            Log.i("Slicer", "Sending slice command 2")
             OctoprintSlicing.sliceCommand(mActivity, mPrinter!!.address, mFile, mExtras)
             //if (mExtras.has("print")) mExtras.remove("print");
 

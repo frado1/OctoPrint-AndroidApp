@@ -144,22 +144,15 @@ class DevicesGridAdapter//Constructor
 
                     else -> {
 
-
                         when (m.type) {
-
                             StateUtils.TYPE_WITBOX ->
-
-
                                 if (m.displayColor != 0) {
-
                                     holder.imageIcon!!.setImageResource(R.drawable.printer_witbox_alpha)
                                     holder.imageIcon!!.setColorFilter(m.displayColor, Mode.DST_ATOP)
-
                                 } else
                                     holder.imageIcon!!.setImageResource(R.drawable.printer_witbox_default)
 
                             StateUtils.TYPE_PRUSA ->
-
                                 if (m.network != null)
                                     if (m.network == MainActivity.getCurrentNetwork(context)) {
                                         if (m.displayColor != 0) {
@@ -173,15 +166,11 @@ class DevicesGridAdapter//Constructor
                                         holder.imageIcon!!.setImageResource(R.drawable.printer_prusa_nowifi)
 
                             StateUtils.TYPE_CUSTOM ->
-
                                 if (m.displayColor != 0) {
-
                                     holder.imageIcon!!.setImageResource(R.drawable.printer_custom_alpha)
                                     holder.imageIcon!!.setColorFilter(m.displayColor, Mode.DST_ATOP)
-
                                 } else
                                     holder.imageIcon!!.setImageResource(R.drawable.printer_custom_default)
-
 
                             else -> holder.imageIcon!!.setImageResource(R.drawable.printer_custom_default)
                         }
@@ -194,7 +183,6 @@ class DevicesGridAdapter//Constructor
 
                     StateUtils.STATE_OPERATIONAL -> {
 
-
                         //Check for printing completion
                         if (m.job != null) {
 
@@ -202,7 +190,6 @@ class DevicesGridAdapter//Constructor
                             if (m.job.progress != "null") {
 
                                 if (m.job.finished) {
-
                                     holder.progressBarPrinting!!.visibility = View.VISIBLE
                                     holder.progressBarPrinting!!.progress = 100
                                     //holder.progressBarPrinting.getProgressDrawable().setColorFilter(Color.parseColor("#ff009900"), Mode.SRC_IN);
@@ -225,7 +212,6 @@ class DevicesGridAdapter//Constructor
 								//DevicesFragment.playMusic();
 							}*/
                             }
-
                         }
 
                         //Must put this second because loading has priority over completion
@@ -245,18 +231,17 @@ class DevicesGridAdapter//Constructor
 
                         holder.progressBarPrinting!!.visibility = View.VISIBLE
                         if (m.job.progress != "null") {
-
                             val n = java.lang.Double.valueOf(m.job.progress)
-
                             holder.progressBarPrinting!!.progress = n.toInt()
                         }
-
                     }
 
                     StateUtils.STATE_PAUSED -> {
                         holder.progressBarPrinting!!.visibility = View.VISIBLE
-                        val n = java.lang.Double.valueOf(m.job.progress)
-                        holder.progressBarPrinting!!.progress = n.toInt()
+                        if (m.job.progress != "null") {
+                            val n = java.lang.Double.valueOf(m.job.progress)
+                            holder.progressBarPrinting!!.progress = n.toInt()
+                        }
                         holder.textViewLoading!!.setText(R.string.devices_text_paused)
                         holder.textViewLoading!!.visibility = View.VISIBLE
 

@@ -382,6 +382,7 @@ object OctoprintConnection {
 
     }
 
+
     fun getUpdatedSettings(p: ModelPrinter, profile: String) {
 
         HttpClientHandler.get(
@@ -483,10 +484,6 @@ object OctoprintConnection {
                     e.printStackTrace()
                 }
 
-
-            }
-
-            fun onProgress(bytesWritten: Int, totalSize: Int) {
 
             }
 

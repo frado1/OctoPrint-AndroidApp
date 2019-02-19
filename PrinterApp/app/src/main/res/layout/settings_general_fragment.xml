@@ -151,7 +151,7 @@
             style="@style/SettingsDeviceInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Conexión establecida" />
+            android:text="@string/network_status_text_established" />
 
     </LinearLayout>
 

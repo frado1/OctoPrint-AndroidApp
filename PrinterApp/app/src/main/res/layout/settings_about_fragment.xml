@@ -19,63 +19,127 @@
         android:layout_marginTop="@dimen/content_margin_small" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- bq logo -->
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/content_margin_small"
-            android:src="@drawable/logobq" />
-
-        <!-- Texts container -->
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+            <!-- bq logo -->
+            <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/content_margin_small"
+                    android:src="@drawable/logobq"/>
+
+            <!-- Texts container -->
             <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            style="@style/SettingsDeviceTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="1dp"
+                            android:text="@string/about_app_name"/>
+
+                    <TextView
+                            android:id="@+id/app_version_textview"
+                            style="@style/SettingsDeviceTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="1dp"
+                            android:textSize="@dimen/text_size_small"
+                            android:layout_marginLeft="@dimen/content_margin_small"/>
+                </LinearLayout>
+
+                <TextView
+                        style="@style/SettingsDeviceInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"
+                        android:text="@string/about_url"/>
+
+                <TextView
+                        style="@style/SettingsDeviceInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_feedback_url"
+                        android:padding="1dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    style="@style/SettingsDeviceTitle"
+            <!-- bq logo -->
+            <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/content_margin_small"
+                    android:src="@drawable/above_shadow"/>
+
+            <!-- Texts container -->
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="1dp"
-                    android:text="@string/about_app_name" />
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            style="@style/SettingsDeviceTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="1dp"
+                            android:text="@string/v2_about_app_name"/>
+
+                    <TextView
+                            android:id="@+id/v2_app_version_textview"
+                            style="@style/SettingsDeviceTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="1dp"
+                            android:textSize="@dimen/text_size_small"
+                            android:layout_marginLeft="@dimen/content_margin_small"/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/app_version_textview"
-                    style="@style/SettingsDeviceTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="1dp"
-                    android:textSize="@dimen/text_size_small"
-                    android:layout_marginLeft="@dimen/content_margin_small"/>
+                        style="@style/SettingsDeviceInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"
+                        android:text="@string/v2_copyright"/>
+
+                <TextView
+                        style="@style/SettingsDeviceInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/v2_about_feedback_url"
+                        android:padding="1dp"/>
+
             </LinearLayout>
 
-            <TextView
-                style="@style/SettingsDeviceInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:text="@string/about_url" />
-
-            <TextView
-                style="@style/SettingsDeviceInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/about_feedback_url"
-                android:padding="1dp" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 

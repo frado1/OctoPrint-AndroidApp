@@ -87,6 +87,10 @@ class PrintViewFragment : Fragment() {
     private var mDownloadDialog: Dialog? = null
 
     private var mExtrudersGridAdapter: ExtrudersGridAdapter? = null
+
+    private var mLayoutVideo: FrameLayout? = null
+    private var mLayoutTempGraph: FrameLayout? = null
+    private var mSpinnerExtruder: Spinner? = null
     /**
      * Receives the "download complete" event asynchronously
      */
@@ -198,19 +202,35 @@ class PrintViewFragment : Fragment() {
 
                 /** */
 
+
+                //Get temperature
+                mLayoutTempGraph = mRootView!!.findViewById<View>(R.id.printview_tempgraph) as FrameLayout
+
                 //Get video
                 mLayoutVideo = mRootView!!.findViewById<View>(R.id.printview_video) as FrameLayout
 
-                //TODO CAMERA DISABLED
-//FD20190214: Temporarely disable camera view
-//                mPrinter?.let {
-//                    if ( it.webcamAddress != null ) {
-//                        mCamera = CameraHandler(mContext, it.webcamAddress!!, mLayoutVideo)
-//                        mVideoSurface = mCamera?.view
-//                        mLayoutVideo?.addView(mVideoSurface)
-//                        mCamera?.startVideo()
-//                    }
-//                }
+                // Spinner on Extruder tab
+                mSpinnerExtruder = mRootView!!.findViewById(R.id.printview_extruder_spinner) as Spinner
+
+                val profile = mPrinter?.profile?.let { ModelProfile.retrieveProfile(mContext, it, ModelProfile.TYPE_P) }
+                val numExtruder = profile?.let { it.getJSONObject("extruder").getInt("count") } ?: 1
+
+                if ( numExtruder <= 1 ) {
+                    mSpinnerExtruder!!.visibility = View.INVISIBLE
+                } else {
+                    addItemsOnExtruderSpinner(mSpinnerExtruder!!, numExtruder)
+                    mSpinnerExtruder!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                        }
+
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                        }
+
+                    }
+                    mSpinnerExtruder!!.visibility = View.VISIBLE
+                }
 
                 val optionTabHost = mRootView!!.findViewById<View>(R.id.printviews_options_tabhost) as TabHost
                 optionTabHost.setup()
@@ -220,7 +240,7 @@ class PrintViewFragment : Fragment() {
                 temperatureTab.setIndicator(
                     getTabIndicator(
                         mContext.resources.getString(R.string.printview_temperature_text),
-                        R.drawable.ic_videocam
+                        R.drawable.ic_action_temperature
                     )
                 )
                 temperatureTab.setContent(R.id.printview_options_temperature)
@@ -263,6 +283,17 @@ class PrintViewFragment : Fragment() {
                 val tabHost = mRootView!!.findViewById<View>(R.id.printviews_tabhost) as TabHost
                 tabHost.setup()
 
+                //Create TEMPERATURE tab
+                val tempGraphTab = tabHost.newTabSpec("TempGraph")
+                tempGraphTab.setIndicator(
+                    getTabIndicator(
+                        mContext.resources.getString(R.string.printview_tempgraph_text),
+                        R.drawable.ic_action_temperature
+                    )
+                )
+                tempGraphTab.setContent(R.id.printview_tempgraph)
+                tabHost.addTab(tempGraphTab)
+
                 //Create VIDEO tab
                 val settingsTab = tabHost.newTabSpec("Video")
                 settingsTab.setIndicator(
@@ -286,32 +317,40 @@ class PrintViewFragment : Fragment() {
                 tabHost.addTab(featuresTab)
 
                 tabHost.setOnTabChangedListener { s ->
-                    if (s == "Video") {
-                        if (mSurface != null)
-                            mLayout!!.removeAllViews()
-                    } else {    //Redraw the gcode
-                        if (!isGcodeLoaded) {
-                            //Show gcode tracking if there's a current path in the printer/preferences
-                            if (mPrinter!!.job.filename != null) {
-                                retrieveGcode()
+                    when(s) {
+                        "Video" -> {
+                            if (mSurface != null)
+                                mLayout!!.removeAllViews()
+
+                            startCameraPlayback()
+                        }
+
+                        "3D Render" -> { //Redraw the gcode
+                            if (!isGcodeLoaded) {
+                                //Show gcode tracking if there's a current path in the printer/preferences
+                                if (mPrinter!!.job.filename != null) {
+                                    retrieveGcode()
+                                }
+                            } else {
+                                if (mSurface != null) {
+                                    drawPrintView()
+                                }
                             }
-                        } else {
-                            if (mSurface != null) {
-                                drawPrintView()
-                            }
+                            stopCameraPlayback()
+                        }
+                        "TempGraph" -> {
+                            if (mSurface != null)
+                                mLayout!!.removeAllViews()
+                            stopCameraPlayback()
                         }
                     }
-
-                    //TODO CAMERA DISABLED
-                    mLayoutVideo!!.invalidate()
                 }
 
                 /** */
-
+                //TODO CAMERA DISABLED
+                mLayoutVideo?.invalidate()
 
                 initUiElements()
-
-
 
                 refreshData()
 
@@ -323,6 +362,18 @@ class PrintViewFragment : Fragment() {
 
         }
         return mRootView
+    }
+
+    fun addItemsOnExtruderSpinner(spinner: Spinner, numOfExtruders: Int) {
+        var list: MutableList<String> = ArrayList<String>()
+
+        for (i in 1..numOfExtruders) {
+            list.add(String.format(mContext.getString(R.string.printview_extruder_tag), i))
+        }
+
+        val dataAdapter:ArrayAdapter<String> = ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item, list)
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -476,6 +527,21 @@ class PrintViewFragment : Fragment() {
         mRootView!!.findViewById<View>(R.id.button_xy_home)
             .setOnClickListener { OctoprintControl.sendHeadCommand(activity!!, mPrinter!!.address, "home", "xy", 0.0) }
 
+        (mRootView!!.findViewById<View>(R.id.printview_fans_switch) as androidx.appcompat.widget.SwitchCompat)
+            .setOnCheckedChangeListener { _, isChecked -> if ( isChecked ) {
+                OctoprintControl.sendArbitraryCommand(activity!!, mPrinter!!.address, "M106 S255")
+            } else {
+                OctoprintControl.sendArbitraryCommand(activity!!, mPrinter!!.address, "M106 S0")
+            }
+        }
+
+        (mRootView!!.findViewById<View>(R.id.printview_motors_switch) as androidx.appcompat.widget.SwitchCompat)
+            .setOnCheckedChangeListener { _, isChecked -> if ( isChecked ) {
+                OctoprintControl.sendArbitraryCommand(activity!!, mPrinter!!.address, "M18")
+            } else {
+                OctoprintControl.sendArbitraryCommand(activity!!, mPrinter!!.address, "M17")
+            }
+            }
         /**
          * Temperatures
          */
@@ -714,6 +780,16 @@ class PrintViewFragment : Fragment() {
         notifyAdapter()
     }
 
+    fun startCameraPlayback() {
+        mPrinter?.let {
+            if ( it.webcamAddress != null ) {
+                mCamera = CameraHandler(mContext, it.webcamAddress!!, mLayoutVideo)
+                mVideoSurface = mCamera?.view
+                mLayoutVideo?.addView(mVideoSurface)
+                mCamera?.startVideo()
+            }
+        }
+    }
 
     fun stopCameraPlayback() {
 
@@ -722,6 +798,7 @@ class PrintViewFragment : Fragment() {
             it.stopPlayback()
             it.visibility = View.GONE
         }
+
 
 
     }
@@ -846,13 +923,15 @@ class PrintViewFragment : Fragment() {
                             R.string.printview_download_dialog
                         )
 
-                        //Show progress dialog
-                        val connectionDialogBuilder = MaterialDialog(mContext)
-                        connectionDialogBuilder.customView(view = waitingForServiceDialogView, scrollable = true)
-                            .noAutoDismiss()
+//                        if(waitingForServiceDialogView.parent != null) {
+//                            (waitingForServiceDialogView.parent as ViewGroup).removeView(waitingForServiceDialogView)
+//                        }
+                            //Show progress dialog
+//                        val connectionDialogBuilder = MaterialDialog(mContext)
+//                        connectionDialogBuilder.customView(view = waitingForServiceDialogView, scrollable = true).noAutoDismiss()
 
                         //Progress dialog to notify command events
-                        MaterialDialog(mContext!!)
+                        MaterialDialog(mContext)
                             .customView(view = waitingForServiceDialogView, scrollable = true)
                             .noAutoDismiss()
                             .show()
@@ -931,7 +1010,6 @@ class PrintViewFragment : Fragment() {
         private var mDataGcode: DataStorage? = null
         private var mSurface: ViewerSurfaceView? = null
         private var mLayout: FrameLayout? = null
-        private var mLayoutVideo: FrameLayout? = null
 
         //Context needed for file loading
         private lateinit var mContext: Context

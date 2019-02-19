@@ -188,31 +188,28 @@ class MjpegView : SurfaceView, SurfaceHolder.Callback {
     }
 
     fun stopPlayback() {
-        Log.i("CAMERA", "Stopped Playback!!")
-        isRunning = false
-        var retry = true
-
-        try {
-            mIn!!.close()
-
-        } catch (e: Exception) {
-
-        }
-
-        while (retry) {
-
+        Log.i("CAMERA", "Stopped Playback!! Running: $isRunning")
+        if ( isRunning ) {
+            isRunning = false
+            var retry = true
 
             try {
-
-
-                thread!!.join()
-                retry = false
-
+                mIn!!.close()
             } catch (e: Exception) {
-                e.stackTrace
-                Log.d(TAG, "catch IOException hit in stopPlayback")
             }
 
+            while (retry) {
+                try {
+                    Log.d("CAMERA", "Joining Thread!!")
+                    thread!!.join()
+                    Log.d("CAMERA", "Joined Thread!!")
+                    retry = false
+
+                } catch (e: Exception) {
+                    e.stackTrace
+                    Log.d(TAG, "catch IOException hit in stopPlayback")
+                }
+            }
         }
     }
 

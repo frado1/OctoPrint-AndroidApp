@@ -237,4 +237,45 @@ object OctoprintControl {
 
     }
 
+    fun sendArbitraryCommand(context: Context, url: String, command: String) {
+
+        val jsonObj = JSONObject()
+        var entity: StringEntity? = null
+        var destinationUrl = HttpUtils.URL_COMMAND
+
+        try {
+
+            jsonObj.put("command", command)
+
+            entity = StringEntity(jsonObj.toString(), "UTF-8")
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        } catch (e: UnsupportedEncodingException) {
+            e.printStackTrace()
+        }
+
+
+        Log.i("ARBITRARY", "Sending: " + jsonObj.toString())
+        HttpClientHandler.post(context, url + destinationUrl,
+            entity!!, "application/json", object : JsonHttpResponseHandler() {
+
+                override fun onSuccess(
+                    statusCode: Int, headers: Array<Header>,
+                    response: JSONObject
+                ) {
+                    super.onSuccess(statusCode, headers, response)
+                }
+
+                override fun onFailure(
+                    statusCode: Int, headers: Array<Header>,
+                    responseString: String, throwable: Throwable
+                ) {
+
+                    super.onFailure(statusCode, headers, responseString, throwable)
+                    MainActivity.showDialog(responseString)
+                }
+            })
+
+    }
 }

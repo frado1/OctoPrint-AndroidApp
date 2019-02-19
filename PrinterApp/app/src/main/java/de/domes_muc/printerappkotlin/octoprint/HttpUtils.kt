@@ -34,6 +34,7 @@ object HttpUtils {
     val URL_AUTHENTICATION = "/apps/auth"
     val URL_PROFILES = "/api/printerprofiles"
     val URL_LOGIN = "/api/login"
+    val URL_COMMAND = "/api/printer/command"
 
     /**
      * External links *

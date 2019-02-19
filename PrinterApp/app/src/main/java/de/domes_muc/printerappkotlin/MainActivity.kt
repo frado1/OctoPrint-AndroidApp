@@ -283,7 +283,6 @@ Close app on locale change
         } else {
             mTabHost!!.currentTab = 2
             onItemSelected(2)
-
         }
 
 
@@ -379,7 +378,7 @@ Close app on locale change
                 closeDetailView()
                 //Check if we already created the Fragment to avoid having multiple instances
                 if (supportFragmentManager.findFragmentByTag(ListContent.ID_DEVICES) == null) {
-                    mDevicesFragment = DevicesFragment()?.let {
+                    mDevicesFragment = DevicesFragment().let {
                         fragmentTransaction.add(R.id.maintab3, it, ListContent.ID_DEVICES)
                         it
                     }
@@ -603,9 +602,7 @@ Close app on locale change
                 (it as PrintViewFragment).stopCameraPlayback()
             }
 
-            mCurrent?.let {
-                it.setMenuVisibility(true)
-            }
+            mCurrent?.setMenuVisibility(true)
         }
 
         fun closeDetailView() {
